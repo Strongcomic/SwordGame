@@ -1,7 +1,9 @@
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import lombok.Getter;
 
+@Getter
 public final class Player {
     private final Texture texture;
     private final float size;
@@ -15,14 +17,6 @@ public final class Player {
 
     public void setPosition(float x, float y) {
         position.set(x, y);
-    }
-
-    public Vector2 getPosition() {
-        return position;
-    }
-
-    public float getSize() {
-        return size;
     }
 
     public Vector2 getTipPosition() {

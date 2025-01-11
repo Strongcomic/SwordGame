@@ -17,10 +17,20 @@ public final class ItemManager {
         items.clear();
     }
 
+    public void updateAndClean(float delta, float screenHeight) {
+        for (int i = items.size - 1; i >= 0; i--) {
+            GameItem item = items.get(i);
+            item.update(delta);
+            if (item.getPosition().y + size < 0) {
+                items.removeIndex(i);
+            }
+        }
+    }
+
     public int collectItems(Player player) {
         int totalPoints = 0;
         for (int i = items.size - 1; i >= 0; i--) {
-            var item = items.get(i);
+            GameItem item = items.get(i);
             if (item.getPosition().dst(player.getTipPosition()) < size / 2f) {
                 totalPoints += item.getPoints();
                 items.removeIndex(i);
@@ -30,8 +40,12 @@ public final class ItemManager {
     }
 
     public void draw(SpriteBatch batch) {
-        for (var item : items) {
-            batch.draw(item.getTexture(), item.getPosition().x, item.getPosition().y, size, size);
+        for (GameItem item : items) {
+            batch.draw(item.getTexture(),
+                item.getPosition().x,
+                item.getPosition().y,
+                size, size
+            );
         }
     }
 }
